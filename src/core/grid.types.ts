@@ -29,6 +29,7 @@ export type GridDensity = 'compact' | 'standard' | 'comfortable';
 export type DataGridStylesNames =
   | 'root'
   | 'toolbar'
+  | 'statusBar'
   | 'scrollArea'
   | 'table'
   | 'header'
@@ -43,6 +44,21 @@ export type DataGridStylesNames =
   | 'pagination'
   | 'emptyState'
   | 'errorState';
+
+/** Numbers handed to a status bar renderer. */
+export interface DataGridStatusBarContext {
+  /** Rows matching the query overall (server `rowCount` in manual pagination, otherwise rows before pagination). */
+  totalRows: number;
+  /** Rows left after search and filters (equals `totalRows` for server-side filtering/pagination). */
+  filteredRows: number;
+  /** Rows in the current row model (the current page when paginated). */
+  visibleRows: number;
+  /** Whether row virtualization is active. */
+  isVirtualized: boolean;
+}
+
+/** Content of the status bar: a flag, `{ left, right }` slots, or a render function for the whole bar. */
+export type DataGridStatusBar = boolean | { left?: ReactNode; right?: ReactNode } | ((context: DataGridStatusBarContext) => ReactNode);
 
 /** Server-relevant state, emitted by `onQueryChange` for manual (server-side) mode. */
 export interface DataGridQuery {
@@ -304,6 +320,12 @@ export interface DataGridProps<TData extends RowData> extends DataGridFeaturePro
   renderToolbar?: (table: Table<TData>) => ReactNode;
   /** Extra toolbar content rendered on the right side. */
   toolbarActions?: ReactNode;
+  /**
+   * Slim status bar below the rows, inside the card. Off by default.
+   * `true` shows the default texts (`labels.statusScrollHint` / `labels.statusRows`), an object overrides either side
+   * (pass `null` to hide a side), a function renders the whole bar.
+   */
+  statusBar?: DataGridStatusBar;
   getRowClassName?: (row: Row<TData>) => string | undefined;
   getRowStyle?: (row: Row<TData>) => CSSProperties | undefined;
   onRowClick?: (row: Row<TData>, event: MouseEvent<HTMLDivElement>) => void;

@@ -1,6 +1,6 @@
 {
   "name": "@kvmb/react-data-grid",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Enterprise React data grid for Mantine: sorting, advanced filtering, editing, grouping, virtualization, drag & drop and CSV/Excel export, powered by TanStack Table.",
   "keywords": [
     "react",

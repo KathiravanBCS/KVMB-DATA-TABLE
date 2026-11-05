@@ -33,6 +33,7 @@ import {
   DragDropPage,
   EditingPage,
   ExportPage,
+  ExternalToolbarPage,
   FilteringPage,
   GroupingPage,
   PaginationPage,
@@ -66,6 +67,7 @@ const sections: { label: string; pages: PageEntry[] }[] = [
       { slug: 'grouping', label: 'Grouping & aggregation', component: GroupingPage },
       { slug: 'recipes', label: 'Table recipes', component: RecipesPage },
       { slug: 'virtualization', label: 'Virtualization', component: VirtualizationPage },
+      { slug: 'external-toolbar', label: 'External toolbar & status bar', component: ExternalToolbarPage },
       { slug: 'selection', label: 'Row selection', component: SelectionPage },
       { slug: 'column-management', label: 'Column management', component: ColumnManagementPage },
       { slug: 'drag-and-drop', label: 'Drag & drop', component: DragDropPage },
@@ -159,7 +161,7 @@ export function App() {
               @kvmb/react-data-grid
             </Title>
             <Badge variant="default" radius="sm" visibleFrom="xs">
-              v0.1.0
+              v0.2.0
             </Badge>
           </Group>
           <Group gap="xs">

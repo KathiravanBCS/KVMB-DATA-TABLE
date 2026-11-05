@@ -125,6 +125,12 @@ const featureProps: PropRow[] = [
   { name: 'enableVirtualization / overscan', type: 'boolean / number', default: '8', description: 'Row virtualization.' },
   { name: 'enableExport / onExportError', type: 'boolean', description: 'Export menu in the toolbar.' },
   { name: 'enableToolbar / enableDensityToggle / renderToolbar / toolbarActions', type: '…', description: 'Toolbar customisation.' },
+  {
+    name: 'statusBar',
+    type: 'boolean | { left?, right? } | (ctx) => ReactNode',
+    default: 'false',
+    description: 'Slim bar below the rows. `true` uses labels.statusScrollHint / labels.statusRows. Also a prop of DataGridView.',
+  },
   { name: 'enableKeyboardNavigation', type: 'boolean', default: 'true', description: 'Arrow-key cell navigation.' },
   {
     name: 'onQueryChange',
@@ -178,6 +184,10 @@ export function ApiPage() {
       </Section>
       <Section title="Other exports">
         <List size="sm">
+          <List.Item>
+            <b>Split grid:</b> <code>DataGridRoot</code> (state, takes every <code>DataGrid</code> prop) and <code>DataGridView</code> (the
+            table only, plus <code>statusBar</code>). Toolbar controls work anywhere under the root. See "External toolbar & status bar".
+          </List.Item>
           <List.Item>
             <b>Hooks / context:</b> <code>useDataGrid</code>, <code>useDataGridContext</code> (inside custom cells or toolbars),{' '}
             <code>DataGridProvider</code>.

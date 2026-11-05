@@ -139,6 +139,39 @@
   z-index: 4;
 }
 
+/* Always-visible scrollbar for height-constrained grids (overridable via the --dg-scrollbar-* variables). */
+.mdg-scroll[data-has-height] {
+  scrollbar-color: var(--dg-scrollbar-thumb, var(--mantine-color-gray-5)) var(--dg-scrollbar-track, transparent);
+}
+
+[data-mantine-color-scheme='dark'] .mdg-scroll[data-has-height] {
+  scrollbar-color: var(--dg-scrollbar-thumb, var(--mantine-color-dark-3)) var(--dg-scrollbar-track, transparent);
+}
+
+/* ------------------------------------------------------------------ status bar */
+
+.mdg-statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mantine-spacing-sm);
+  min-height: 28px;
+  padding: 4px var(--dg-cell-px);
+  border-top: 1px solid var(--dg-border-color);
+  background: var(--dg-footer-bg);
+  color: var(--dg-dimmed-color);
+  font-size: var(--mantine-font-size-xs);
+}
+
+.mdg-statusbar[data-custom] {
+  display: block;
+}
+
+.mdg-statusbar-right {
+  margin-inline-start: auto;
+  text-align: end;
+}
+
 /* ------------------------------------------------------------------ rows */
 
 .mdg-tr {

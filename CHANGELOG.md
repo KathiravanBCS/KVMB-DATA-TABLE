@@ -5,8 +5,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-05
+
 ### Added
 
+- `DataGridRoot` + `DataGridView`: split the grid so toolbar controls can live anywhere on the page. `DataGridRoot` owns the state (it takes every `DataGrid` prop); `DataGridView` renders only the table (header, rows, footer, status bar, pagination) and never a toolbar. `GlobalSearch`, `FilterBuilderButton`, `FilterChips`, `ColumnManager`, `DensityMenu`, `ExportMenu`, `SelectionBar` and `useDataGridContext()` work anywhere under the root, including portals and Mantine popovers. `<DataGrid>` is now `DataGridRoot` + the default toolbar + `DataGridView` and behaves as before.
+- `FilterChips` shows a removable chip for the active global search text (`includeSearch`, default `true`); "Clear all filters" resets the search and every condition. It renders nothing when nothing is active.
+- `statusBar` prop on `DataGrid`, `DataGridRoot` and `DataGridView`: a slim bar below the rows, inside the card (`true`, `{ left, right }` or a render function receiving `{ totalRows, filteredRows, visibleRows, isVirtualized }`). Off by default. New `statusBar` styles name, and `labels.statusScrollHint` / `labels.statusRows`.
+- Exported types: `DataGridRootProps`, `DataGridViewProps`, `FilterChipsProps`, `DataGridStatusBar`, `DataGridStatusBarContext`.
+- Height-constrained grids always show their scrollbar (`--dg-scrollbar-thumb` / `--dg-scrollbar-track` to restyle).
+- Docs: "External toolbar & status bar" page with a File Manager layout over 10,000 virtualized rows.
 - Master/detail rows: `renderDetailPanel` renders a full-width panel below an expanded row (with an expand column), `getRowCanExpand` decides which rows expand. Panels are measured for virtualization, and nested grids keep their own keyboard navigation.
 - Tree data (`getSubRows`) shows expanders and indentation in the first data column (`treeColumnId` to choose another), toggled with the mouse or `Enter`.
 - Grouped column headers are laid out on a CSS grid: group headers are centred over their columns and ungrouped columns span every header row (`aria-rowspan`).
@@ -19,6 +27,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ### Changed
 
+- `useDataGridContext` now re-renders with the grid wherever it is used under a `DataGridRoot`. Memoised rows and cells keep using a non-subscribing internal hook, so row memoization is unchanged.
 - Aggregated cells in group rows use `meta.formatAggregate`, then `meta.format`, when the column has no `aggregatedCell`.
 - Tree parent rows render their own values with the column's `cell` renderer (not `aggregatedCell`).
 - CSV/Excel/clipboard exports of tree data include every level, parents before children (previously only top-level rows).

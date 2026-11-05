@@ -2,15 +2,15 @@ import { ActionIcon, Group, Loader, Tooltip } from '@mantine/core';
 import { IconAlertTriangle, IconCheck, IconPencil, IconX } from '@tabler/icons-react';
 import type { CellContext, ColumnDef, RowData } from '@tanstack/react-table';
 import { ACTIONS_COLUMN_ID } from '../../core/grid.constants';
-import { useDataGridContext } from '../../core/DataGridProvider';
+import { useStableDataGridContext } from '../../core/DataGridProvider';
 
 function ActionsHeader() {
-  const { labels } = useDataGridContext();
+  const { labels } = useStableDataGridContext();
   return <span className="mdg-sr-only">{labels.rowActions}</span>;
 }
 
 function ActionsCell<TData extends RowData>({ row, table }: CellContext<TData, unknown>) {
-  const { editing, labels } = useDataGridContext<TData>();
+  const { editing, labels } = useStableDataGridContext<TData>();
   if (row.getIsGrouped()) return null;
   const isEditing = editing.active?.rowId === row.id;
   const save = editing.saveStates[row.id];

@@ -1,15 +1,15 @@
 import type { CellContext, ColumnDef, RowData } from '@tanstack/react-table';
 import { DRAG_COLUMN_ID } from '../../core/grid.constants';
-import { useDataGridContext } from '../../core/DataGridProvider';
+import { useStableDataGridContext } from '../../core/DataGridProvider';
 import { DragHandle } from './DragHandle';
 
 function DragHeader() {
-  const { labels } = useDataGridContext();
+  const { labels } = useStableDataGridContext();
   return <span className="mdg-sr-only">{labels.dragRow}</span>;
 }
 
 function DragCell<TData extends RowData>({ row }: CellContext<TData, unknown>) {
-  const { labels } = useDataGridContext<TData>();
+  const { labels } = useStableDataGridContext<TData>();
   if (row.getIsGrouped()) return null;
   return <DragHandle label={labels.dragRow} />;
 }
