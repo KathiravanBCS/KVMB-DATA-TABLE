@@ -86,6 +86,8 @@ export interface DataGridLabels {
   sortedDescending: (column: string) => string;
   sortCleared: (column: string) => string;
   rowsAnnouncement: (count: number) => string;
+  statusScrollHint: string;
+  statusRows: (count: number) => string;
   trueLabel: string;
   falseLabel: string;
   valueMin: string;
@@ -180,6 +182,8 @@ export const defaultLabels: DataGridLabels = {
   sortedDescending: (c) => `Sorted by ${c}, descending`,
   sortCleared: (c) => `Sorting removed from ${c}`,
   rowsAnnouncement: (n) => `${n.toLocaleString()} rows`,
+  statusScrollHint: 'Scroll for more rows',
+  statusRows: (n) => `Showing ${n.toLocaleString()} rows`,
   trueLabel: 'Yes',
   falseLabel: 'No',
   valueMin: 'Min',

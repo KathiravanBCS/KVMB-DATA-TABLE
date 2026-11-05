@@ -29,6 +29,8 @@ import serviceCode from '../../../examples/server/employees.service.ts?raw';
 import controllerCode from '../../../examples/server/nest-controller.example.ts.txt?raw';
 import ThemeDemo from '../../../examples/demos/ThemeDemo';
 import themeCode from '../../../examples/demos/ThemeDemo.tsx?raw';
+import ExternalToolbarDemo from '../../../examples/demos/ExternalToolbarDemo';
+import externalToolbarCode from '../../../examples/demos/ExternalToolbarDemo.tsx?raw';
 import PersistenceDemo from '../../../examples/demos/PersistenceDemo';
 import persistenceCode from '../../../examples/demos/PersistenceDemo.tsx?raw';
 import columnsSharedCode from '../../../examples/columns.tsx?raw';
@@ -391,6 +393,69 @@ export function VirtualizationPage() {
       <Text size="sm" c="dimmed">
         See the README for measured benchmark numbers (<code>npm run bench</code>).
       </Text>
+    </Page>
+  );
+}
+
+export function ExternalToolbarPage() {
+  return (
+    <Page
+      title="External toolbar & status bar"
+      intro="Render the search box, filter chips and the other toolbar controls anywhere on the page, and keep the table card clean."
+    >
+      <Demo component={ExternalToolbarDemo} code={externalToolbarCode} />
+      <Section title="How it works">
+        <List size="sm">
+          <List.Item>
+            <code>DataGridRoot</code> owns the grid state and takes every <code>DataGrid</code> prop. <code>DataGridView</code> renders only
+            the table: header, rows, footer, status bar and pagination, never a toolbar.
+          </List.Item>
+          <List.Item>
+            <code>GlobalSearch</code>, <code>FilterBuilderButton</code>, <code>FilterChips</code>, <code>ColumnManager</code>,{' '}
+            <code>DensityMenu</code>, <code>ExportMenu</code> and <code>SelectionBar</code> work anywhere under the root: next to the page
+            title, in a portal or inside a Mantine Popover. So does <code>useDataGridContext()</code> in your own controls.
+          </List.Item>
+          <List.Item>
+            <code>{'<DataGrid>'}</code> is unchanged: it is <code>DataGridRoot</code> + the built-in toolbar + <code>DataGridView</code>.
+          </List.Item>
+          <List.Item>
+            <code>{'<FilterChips includeSearch />'}</code> adds a removable chip for the search text. "Clear all filters" clears the search
+            and every condition, and the component renders nothing while nothing is active.
+          </List.Item>
+        </List>
+        <CodeBlock
+          code={`<DataGridRoot data={rows} columns={columns} enableFiltering enableVirtualization height={420}>
+  <PageHeader>
+    <GlobalSearch />
+  </PageHeader>
+  <Toolbar>
+    <FilterChips includeSearch />
+    <FilterBuilderButton />
+  </Toolbar>
+  <DataGridView statusBar />
+</DataGridRoot>`}
+        />
+      </Section>
+      <Section title="Status bar">
+        <List size="sm">
+          <List.Item>
+            <code>statusBar</code> is off by default and exists on <code>DataGrid</code>, <code>DataGridRoot</code> and{' '}
+            <code>DataGridView</code> (the view prop wins).
+          </List.Item>
+          <List.Item>
+            <code>true</code> shows the default texts: <code>labels.statusScrollHint</code> ("Scroll for more rows", only when virtualized)
+            on the left and <code>labels.statusRows(n)</code> ("Showing 10,000 rows") on the right.
+          </List.Item>
+          <List.Item>
+            <code>{'{ left, right }'}</code> overrides either side (<code>null</code> hides it); a function{' '}
+            <code>{'({ totalRows, filteredRows, visibleRows, isVirtualized }) => node'}</code> renders the whole bar.
+          </List.Item>
+          <List.Item>
+            The bar sits below the scroll area inside the card, so it never changes the virtualized height. Style it with the{' '}
+            <code>statusBar</code> styles name or the <code>--dg-*</code> variables.
+          </List.Item>
+        </List>
+      </Section>
     </Page>
   );
 }

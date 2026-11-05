@@ -3,6 +3,10 @@ import './core/column-meta';
 // Component & hooks
 export { DataGrid } from './core/DataGrid';
 export type { DataGridFactory } from './core/DataGrid';
+export { DataGridRoot } from './core/DataGridRoot';
+export type { DataGridRootProps } from './core/DataGridRoot';
+export { DataGridView } from './core/DataGridView';
+export type { DataGridViewProps } from './core/DataGridView';
 export { useDataGrid } from './core/useDataGrid';
 export type { DataGridContextValue } from './core/useDataGrid';
 export { useDataGridContext, DataGridProvider } from './core/DataGridProvider';
@@ -15,6 +19,8 @@ export type {
   DataGridFeatureProps,
   DataGridProps,
   DataGridQuery,
+  DataGridStatusBar,
+  DataGridStatusBarContext,
   DataGridStylesNames,
   DetailPanelContext,
   EmptyStateContext,
@@ -108,6 +114,7 @@ export { GlobalSearch } from './components/toolbar/GlobalSearch';
 export { ColumnManager } from './components/toolbar/ColumnManager';
 export { FilterBuilderButton } from './components/toolbar/FilterBuilderButton';
 export { FilterChips } from './components/toolbar/FilterChips';
+export type { FilterChipsProps } from './components/toolbar/FilterChips';
 export { DensityMenu, ExportMenu, GroupingBar, SelectionBar } from './components/toolbar/ToolbarMenus';
 export { GridPagination } from './components/pagination/GridPagination';
 export { DragHandle } from './features/drag-drop/DragHandle';

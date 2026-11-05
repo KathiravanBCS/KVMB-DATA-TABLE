@@ -1,15 +1,15 @@
 import type { CellContext, ColumnDef, RowData } from '@tanstack/react-table';
 import { EXPAND_COLUMN_ID } from '../../core/grid.constants';
-import { useDataGridContext } from '../../core/DataGridProvider';
+import { useStableDataGridContext } from '../../core/DataGridProvider';
 import { Expander, hasDetailToggle } from './Expander';
 
 function ExpandHeader() {
-  const { labels } = useDataGridContext();
+  const { labels } = useStableDataGridContext();
   return <span className="mdg-sr-only">{labels.rowDetails}</span>;
 }
 
 function ExpandCell<TData extends RowData>({ row }: CellContext<TData, unknown>) {
-  const { labels } = useDataGridContext<TData>();
+  const { labels } = useStableDataGridContext<TData>();
   if (!hasDetailToggle(row)) return null;
   return <Expander row={row} expandLabel={labels.expandRow} collapseLabel={labels.collapseRow} />;
 }

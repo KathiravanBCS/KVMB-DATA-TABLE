@@ -23,6 +23,7 @@ It takes its look from your `MantineProvider` theme (light/dark mode, primary co
 | Editing            | Cell or row mode, text/number/select/multi-select/checkbox/date/date-time editors, custom editors, sync + async validation, dirty tracking, optimistic updates with rollback                         |
 | Grouping           | Multi-level groups, counts, aggregated cells, aggregate footer, custom group headers, tree data with expanders, master/detail panels, grouped (row-spanning) column headers                                |
 | Drag & drop        | Row and column reordering with pointer and keyboard                                                                                                                                                     |
+| Layout             | **External toolbar**: `DataGridRoot` + `DataGridView` let you place the search box, filter chips, filter builder, column manager, density/export menus and selection bar anywhere on the page, and an optional **status bar** under the rows ("Showing 100+ files") |
 | Performance        | Row virtualization, memoized rows (only rows whose inputs changed re-render)                                                                                                                           |
 | Export             | CSV and copy-to-clipboard in the core; `.xlsx` (ExcelJS, loaded on demand) from a separate entry point                                                                                                 |
 | Persistence        | Save and restore state in local/session/custom storage                                                                                                                                                 |
@@ -137,7 +138,7 @@ npm install
 npm run docs:dev        # http://127.0.0.1:5173
 ```
 
-Pages: getting started, column definitions, sorting, advanced filtering, pagination, inline editing, grouping & aggregation, table recipes (master/detail, aging groups, tree financial summary, grouped headers), virtualization, row selection, column management, drag & drop, CSV & Excel export, server-side data, Mantine themes, state persistence, accessibility, API reference, migration guides and troubleshooting.
+Pages: getting started, column definitions, sorting, advanced filtering, pagination, inline editing, grouping & aggregation, table recipes (master/detail, aging groups, tree financial summary, grouped headers), virtualization, external toolbar & status bar, row selection, column management, drag & drop, CSV & Excel export, server-side data, Mantine themes, state persistence, accessibility, API reference, migration guides and troubleshooting.
 
 ## Performance
 

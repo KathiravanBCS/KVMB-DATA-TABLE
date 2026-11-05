@@ -1,10 +1,10 @@
 import { Checkbox, Radio } from '@mantine/core';
 import type { ColumnDef, HeaderContext, CellContext, RowData } from '@tanstack/react-table';
 import { SELECT_COLUMN_ID } from '../../core/grid.constants';
-import { useDataGridContext } from '../../core/DataGridProvider';
+import { useStableDataGridContext } from '../../core/DataGridProvider';
 
 function SelectAllHeader<TData extends RowData>({ table }: HeaderContext<TData, unknown>) {
-  const { labels, features } = useDataGridContext<TData>();
+  const { labels, features } = useStableDataGridContext<TData>();
   // With pagination the header toggles the current page; otherwise every filtered row.
   const pageMode = features.pagination;
   const checked = pageMode ? table.getIsAllPageRowsSelected() : table.getIsAllRowsSelected();
@@ -24,12 +24,12 @@ function SelectAllHeader<TData extends RowData>({ table }: HeaderContext<TData, 
 }
 
 function SingleSelectHeader() {
-  const { labels } = useDataGridContext();
+  const { labels } = useStableDataGridContext();
   return <span className="mdg-sr-only">{labels.selectRow}</span>;
 }
 
 function SelectCell<TData extends RowData>({ row }: CellContext<TData, unknown>) {
-  const { labels, props } = useDataGridContext<TData>();
+  const { labels, props } = useStableDataGridContext<TData>();
   const single = props.selectionMode === 'single';
   const common = {
     size: 'xs' as const,

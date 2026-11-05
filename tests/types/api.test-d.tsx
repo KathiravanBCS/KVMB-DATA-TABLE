@@ -2,11 +2,16 @@ import { describe, expectTypeOf, it } from 'vitest';
 import type { ColumnDef, Row, Table } from '@tanstack/react-table';
 import {
   DataGrid,
+  DataGridRoot,
+  DataGridView,
+  FilterChips,
   createFilterCondition,
   type CellEditorProps,
   type DataGridApi,
   type DataGridProps,
   type DataGridQuery,
+  type DataGridStatusBar,
+  type DataGridStatusBarContext,
   type FilterCondition,
   type FilterGroup,
   type RowUpdateHandler,
@@ -84,5 +89,28 @@ describe('public types', () => {
   it('types editors and exports', () => {
     expectTypeOf<CellEditorProps<Employee, number>['value']>().toEqualTypeOf<number>();
     expectTypeOf(exportToExcel<Employee>).returns.resolves.toEqualTypeOf<ExcelExportResult>();
+  });
+
+  it('types the root/view split and the status bar', () => {
+    const root = (
+      <DataGridRoot<Employee> data={[]} columns={[]} enableFiltering statusBar>
+        <FilterChips includeSearch />
+        <DataGridView statusBar={{ left: 'a', right: null }} />
+      </DataGridRoot>
+    );
+    void root;
+    // @ts-expect-error root data must match the row type
+    const wrong = <DataGridRoot<Employee> data={[{ id: 1 }]} columns={[]} />;
+    void wrong;
+    expectTypeOf<DataGridStatusBar>().toMatchTypeOf<boolean | object | ((ctx: DataGridStatusBarContext) => unknown)>();
+    expectTypeOf<DataGridStatusBarContext>().toEqualTypeOf<{
+      totalRows: number;
+      filteredRows: number;
+      visibleRows: number;
+      isVirtualized: boolean;
+    }>();
+    // @ts-expect-error includeSearch is a boolean
+    const badChips = <FilterChips includeSearch="yes" />;
+    void badChips;
   });
 });

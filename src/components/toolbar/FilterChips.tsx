@@ -6,11 +6,19 @@ import { EMPTY_FILTER_MODEL, getActiveConditions, removeFilterNode } from '../..
 import { describeCondition } from '../filters/filterDescription';
 import { getColumnLabel } from '../../utils/columns';
 
-/** Removable chips for every active filter condition, plus "clear all". */
-export function FilterChips<TData extends RowData>() {
+export interface FilterChipsProps {
+  /** Show a removable chip for the active global search text. Defaults to `true`. */
+  includeSearch?: boolean;
+}
+
+/**
+ * Removable chips for every active filter condition (and the global search text), plus "clear all"
+ * which resets both. Renders nothing when nothing is active. Works anywhere under a `DataGridRoot`.
+ */
+export function FilterChips<TData extends RowData>({ includeSearch = true }: FilterChipsProps = {}) {
   const { table, filterModel, setFilterModel, registry, labels } = useDataGridContext<TData>();
   const conditions = getActiveConditions(filterModel, registry);
-  const search = (table.getState().globalFilter as string | undefined) ?? '';
+  const search = includeSearch ? ((table.getState().globalFilter as string | undefined) ?? '') : '';
   if (conditions.length === 0 && !search) return null;
   const nested = filterModel.children.some((c) => c.type === 'group');
   return (
@@ -46,7 +54,7 @@ export function FilterChips<TData extends RowData>() {
         variant="subtle"
         onClick={() => {
           setFilterModel(EMPTY_FILTER_MODEL);
-          table.setGlobalFilter('');
+          if (includeSearch) table.setGlobalFilter('');
         }}
       >
         {labels.clearFilters}
